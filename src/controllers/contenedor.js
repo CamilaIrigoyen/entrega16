@@ -1,21 +1,23 @@
-import knex from './knexProducts.js';
-
+import knex  from 'knex'
 //---------- CLASE CON TENEDOR ------------
-export class Contenedor {
+class Contenedor {
 
     constructor(knex, table) {
           this.knex = knex;
           this.table = table;
         }
 //-------------------
-        async getAll() {
-            try {
-              const products = await this.knex.from(this.table).select('*');
-              return products;
-            } catch (error) {
-              throw error;
-            }
-          } 
+        // async getAll() {
+        //     try {
+        //       const products = await this.knex.from(this.table).select('*');
+        //       return products;
+        //     } catch (error) {
+        //       throw error;
+        //     }
+        //   } 
+        getAll(){
+          return this.knex('products').select('*');
+      }
 //--------------------
         async getById(id) {
             try {
@@ -66,5 +68,4 @@ async save(obj) {
     }
   }
 } 
-
-   
+export default Contenedor;

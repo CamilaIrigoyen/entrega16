@@ -1,27 +1,30 @@
 //=========== MODULOS ===========//
 import express from 'express';
-import products from '../routes/products.js';
+// import apiProducts from '../routes/products.js';
 import fs from 'fs';
 import handlebars from 'express-handlebars';
 import path from 'path';
 import { Server } from 'socket.io';
-import Contenedor from '../contorllers/contenedor.js';
-import Chat from '../controllers/chat.js';
-import knexChat from '../controllers/knexChat.js';
-import knexProducts from '../controllers/knexProducts.js';
-import { knex } from './src/controllers/knexChat.js';
-import dotenv from 'dotenv';
+import Contenedor  from './src/controllers/contenedor.js';
+import Chat from './src/controllers/chat.js';
+import knexChat from './src/controllers/knexChat.js';
+import knexProducts from './src/controllers/knexProducts.js';
+import  knex  from 'knex';
+import router from './src/routes/products.js'
 
-dotenv.config();
 
+
+
+const dirname = path.resolve(path.dirname(''));
 //=========== ROUTERS ===========//
 const app = express();
+
 
 //=========== MIDDLEWARES ===========//
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
-app.use('/', apiProducts);
-app.use('/', express.static(__dirname+'/public'))
+app.use('/', router);
+app.use('/',express.static(dirname+'/public'))
 app.use((req, res, next) => {
     console.log(`Time: ${Date.now()}`)
     next()
@@ -33,20 +36,20 @@ app.use(function (err, req, res, next) {
 })
 
 //=========== MOTOR DE PLANTILLAS ===========//
-app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', handlebars.engine({
-    defaultLayout: 'main',
+app.set('views', path.join(dirname, 'src/views'));
+app.engine('hbs', handlebars.engine({
+    defaultLayout: 'main.hbs',
     layoutsDir: path.join(app.get('views'), 'layouts')
 }));
-app.set('view engine', 'handlebars');
+app.set('view engine', 'hbs');
 
 
 //=========== VARIABLES ===========//
-/* let products = new Contenedortgt(knexProducts, 'products'); */
+let products = new Contenedor(knexProducts, 'products');
 let chat = new Chat(knexChat, 'messages');
 
 //=========== SERVIDOR ===========//
-const PORT = process.env.PORT||8080;
+const PORT = 8080;
 const server = app.listen(PORT, ()=> console.log(`Listening on ${PORT}`));
 
 //=========== SOCKET ===========//

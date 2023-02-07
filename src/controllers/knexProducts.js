@@ -1,16 +1,13 @@
-import dotenv from ('dotenv').config()
+//import dotenv from ('dotenv').config()
 
-export const knex = require('knex')({
-    client: 'mysql2',
-    
-    useNullAsDefault: true,
-
+const knexProducts = {
+    client: "mysql",
     connection: {
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'listadeproductos'
-      
-    }
-})
-
+    host: "127.0.0.1",
+    user: "root",
+    port: 3306,
+    password: "",
+    database: "listaDeProductos",
+    },
+};
+export default knexProducts;

@@ -1,6 +1,6 @@
-import knex from './knexChat.js'
+import knexChat from './knexChat.js';
 
-export class Chat {
+class Chat {
     constructor(knex, table) {
       this.knex = knex;
       this.table = table;
@@ -25,4 +25,4 @@ export class Chat {
       }
     }
   }
-  
+export default Chat; 

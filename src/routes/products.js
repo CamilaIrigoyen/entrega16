@@ -1,5 +1,5 @@
 import express from 'express';
-import Contenedor from "../controllers/contenedor.js";
+import Contenedor from '../controllers/contenedor.js';
 import knexProducts from '../controllers/knexProducts.js';
 
 
@@ -22,7 +22,7 @@ let products = new Contenedor(knexProducts, 'products');
 
 //------- RUTAS ------
 router.get('/', async (req, res, next) => {
-  res.render('formNewProduct');
+    res.render('formNewProduct');
 });
 
 router.get("/products", async (req, res, next) => {
@@ -75,7 +75,7 @@ router.post("/products", async (req, res, next) => {
 
 router.put("/products/:id", async (req, res, next) => {
   try {
-    const producto = await products
+    const producto = await productos
       .getById(Number(req.params.id))
       .then((res) => res);
     if (!producto) {
@@ -125,7 +125,7 @@ function handleErrors(err, req, res, next) {
 router.use(handleErrors);
 
 
-export default products;
+export default  router;
 
 
 

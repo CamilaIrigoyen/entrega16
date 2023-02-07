@@ -11,7 +11,7 @@ knexProducts.schema.hasTable('products').then(exists => {
             table.float('price')
             table.string('thumbnail')
         })
-       
+
     }
     else {
         console.log('La tabla ya existe')
